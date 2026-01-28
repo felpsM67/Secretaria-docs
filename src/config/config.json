@@ -1,0 +1,10 @@
+{
+  "development": {
+    "dialect": "mysql",
+    "host": "0.0.0.0",
+    "database": "secretaria_db",
+    "username": "secretaria_user",
+    "password": "senha123",
+    "port": 3306
+  }
+}

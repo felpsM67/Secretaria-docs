@@ -10,4 +10,5 @@ export const ENV = {
   SWAGGER_ENABLED: process.env.SWAGGER_ENABLED === "true",
   JWT_SECRET: process.env.JWT_SECRET || "ffddb3759aca70db2ee91963cee26082a8bf46903e37baf5624962f5e9035170",
   NODE_ENV: process.env.NODE_ENV || "development",
+  SALT: Number(process.env.SALT || 10),
 };

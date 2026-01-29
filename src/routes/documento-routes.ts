@@ -7,7 +7,7 @@ import { upload } from "@/config/multer";
 export default (router: Router): void => {
   router.post(
     "/documentos/upload", 
-    upload.any(), // Aceita qualquer campo de arquivo
+    upload.any(), 
     adaptRoute(new UploadDocumentoController())
   );
   router.get("/documentos", adaptRoute(new ListarDocumentosController()));

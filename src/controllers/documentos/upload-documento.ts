@@ -79,16 +79,16 @@ export class UploadDocumentoController implements Controller {
       const files = httpRequest.files as Express.Multer.File[];
 
       if (!userId) {
-        return { statusCode: 400, body: new Error("ID do usuário é obrigatório") };
+        return { statusCode: 400, body: { message: "ID do usuário é obrigatório" } };
       }
 
       if (!files || files.length === 0) {
-        return { statusCode: 400, body: new Error("Nenhum arquivo enviado") };
+        return { statusCode: 400, body: { message: "Nenhum arquivo enviado" } };
       }
 
       // Mapeamento dos campos que precisamos
       const requiredFields = ["cpf", "rg", "comprovante", "historico"];
-      const fieldToType: { [key: string]: string } = {
+      const fieldToType: { [key: string]: "CPF" | "RG" | "COMPROVANTE_RESIDENCIA" | "HISTORICO_ESCOLAR" } = {
         cpf: "CPF",
         rg: "RG",
         comprovante: "COMPROVANTE_RESIDENCIA",
@@ -101,7 +101,7 @@ export class UploadDocumentoController implements Controller {
         const file = files.find(f => f.fieldname === fieldName);
         
         if (!file) {
-          return { statusCode: 400, body: new Error(`Arquivo obrigatório ausente: ${fieldName}`) };
+          return { statusCode: 400, body: { message: `Arquivo obrigatório ausente: ${fieldName}` } };
         }
 
         const documento = await DocumentModel.create({
@@ -123,7 +123,11 @@ export class UploadDocumentoController implements Controller {
         body: { message: "Documentos enviados com sucesso", documents: createdDocuments },
       };
     } catch (error: any) {
-      return { statusCode: 500, body: new Error(error.message) };
+      console.error("Erro no UploadDocumentoController:", error);
+      return { 
+        statusCode: 500, 
+        body: { message: error.message || "Erro interno do servidor ao realizar upload" } 
+      };
     }
   }
 }

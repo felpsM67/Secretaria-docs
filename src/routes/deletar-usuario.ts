@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {adaptRoute} from "../adapters/express-route-adapter";
+import adaptRoute from "../adapters/express-route-adapter";
 import DeletarUsuarioController from "../controllers/users/deletar-usuario";
 import { authMiddleware, authorizeRoles } from "../middlewares";
 export default (router: Router): void => {

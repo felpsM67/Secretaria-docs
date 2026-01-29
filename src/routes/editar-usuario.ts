@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {adaptRoute} from "../adapters/express-route-adapter";
+import adaptRoute from "../adapters/express-route-adapter";
 import EditarUsuarioController from "../controllers/users/editar-usuario";
 import { authMiddleware, authorizeRoles } from "../middlewares";
 

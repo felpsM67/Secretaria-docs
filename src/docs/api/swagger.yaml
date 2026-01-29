@@ -7,9 +7,9 @@ servers:
   - url: http://localhost:3000/api
     description: Servidor Local
 tags:
-  - name: Autenticação
-  - name: Usuários
-  - name: Documentos
+  - nome: Autenticação
+  - nome: Usuários
+  - nome: Documentos
 
 paths:
   /login:
@@ -22,10 +22,10 @@ paths:
           application/json:
             schema:
               type: object
-              required: [email, password]
+              required: [email, senha]
               properties:
                 email: { type: string, example: "admin@secretaria.com" }
-                password: { type: string, example: "123456" }
+                senha: { type: string, example: "123456" }
       responses:
         200: { description: Login realizado com sucesso }
 
@@ -51,11 +51,11 @@ paths:
           application/json:
             schema:
               type: object
-              required: [name, email, password]
+              required: [nome, email, senha]
               properties:
-                name: { type: string }
+                nome: { type: string }
                 email: { type: string }
-                password: { type: string }
+                senha: { type: string }
       responses:
         201: { description: Usuário criado com sucesso }
 
@@ -65,7 +65,7 @@ paths:
       tags: [Usuários]
       parameters:
         - in: path
-          name: id
+          nome: id
           required: true
           schema: { type: string }
       requestBody:
@@ -74,7 +74,7 @@ paths:
             schema:
               type: object
               properties:
-                name: { type: string }
+                nome: { type: string }
                 email: { type: string }
       responses:
         200: { description: Usuário atualizado }
@@ -83,7 +83,7 @@ paths:
       tags: [Usuários]
       parameters:
         - in: path
-          name: id
+          nome: id
           required: true
           schema: { type: string }
       responses:
@@ -115,11 +115,11 @@ paths:
       tags: [Documentos]
       parameters:
         - in: query
-          name: userId
+          nome: userId
           schema: { type: string }
           description: Buscar documentos de um usuário específico
         - in: query
-          name: status
+          nome: status
           schema: { type: string, enum: [PENDENTE, APROVADO, REJEITADO] }
       responses:
         200: { description: Lista de documentos retornada }

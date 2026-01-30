@@ -9,7 +9,9 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     crypto.randomBytes(16, (err, hash) => {
       if (err) cb(err, file.filename);
-      const fileName = `${hash.toString("hex")}-${file.originalname}`;
+      // Se o arquivo vier sem nome, damos um nome genérico
+      const originalName = file.originalname || "arquivo-sem-nome";
+      const fileName = `${hash.toString("hex")}-${originalName}`;
       cb(null, fileName);
     });
   },
@@ -18,20 +20,10 @@ const storage = multer.diskStorage({
 export const upload = multer({
   storage,
   limits: {
-    fileSize: 50 * 1024 * 1024, // 5MB
+    fileSize: 50 * 1024 * 1024, // 50MB
   },
   fileFilter: (req, file, cb) => {
-    const allowedMimes = [
-      "image/jpeg",
-      "image/pjpeg",
-      "image/png",
-      "application/pdf",
-    ];
-
-    if (allowedMimes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error("Invalid file type."));
-    }
+    // Permitir tudo por enquanto para diagnosticar o que o Swagger está enviando
+    cb(null, true);
   },
 });
